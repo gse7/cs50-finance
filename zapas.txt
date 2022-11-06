@@ -1,0 +1,38 @@
+
+    shares_counter = transactions[0]["shares"]
+    total_counter = quote["price"] * shares_counter
+
+    #to sum all totals in var
+    total_sum = db.execute("SELECT SUM(total) AS total FROM transactions WHERE user_id=?", user_id)
+    total_sum_db = total_sum[0]["total"]
+    cash = cash_db[0]["cash"]
+    stock_sum = total_sum[0]["total"]
+    total = stock_sum + cash
+
+
+
+
+
+
+
+    #try:
+        shares_counter = transactions[0]["shares"]
+        price = transactions[0]["price"]
+        total = price * shares_counter
+        total_sum = db.execute("SELECT SUM(total) AS total FROM transactions WHERE user_id=?", user_id)
+        total_sum_db = total_sum[0]["total"]
+        cash = cash_db[0]["cash"]
+        total = total_sum_db + cash
+        print(transactions)
+        return render_template("index.html", transactions=transactions, cash=cash, total=total, quote=quote)
+
+    #except:
+        transactions = db.execute("SELECT symbol, name, SUM(shares) AS shares, price, SUM(total) AS total FROM transactions WHERE user_id =? GROUP BY symbol", user_id)
+        total_sum = db.execute("SELECT SUM(total) AS total FROM transactions WHERE user_id=?", user_id)
+        total_sum_db = total_sum[0]["total"]
+        shares_counter = 'null'
+        cash = cash_db[0]["cash"]
+        total =  cash + total_sum_db
+        print(total_sum_db)
+        return render_template("index.html", cash=cash, total=total, transactions=transactions)
+        #count total of shares + total cash

@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Portfolio
+{% endblock %}
+
+{% block main %}
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th class="text-start" scope="col">Symbol</th>
+            <th class="text-end" scope="col">Shares</th>
+            <th class="text-end" scope="col">Price</th>
+            <th class="text-end" scope="col">Transacted</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for row in transactions %}
+        <tr>
+            <td class="text-start">{{ row["symbol"] }}</td>
+            <td class="border-0  text-end">{{ row["shares"] }}</td>
+            <td class="border-0  text-end">{{ row["price"] | usd }}</td>
+            <td class="border-0  text-end">{{ row["date"] }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
