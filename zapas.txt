@@ -9,7 +9,7 @@
     stock_sum = total_sum[0]["total"]
     total = stock_sum + cash
 
-
+HEY
 
 
 
